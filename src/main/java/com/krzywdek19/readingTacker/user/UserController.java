@@ -1,6 +1,5 @@
-package com.krzywdek19.auth.controllers;
+package com.krzywdek19.readingTacker.user;
 
-import com.krzywdek19.auth.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

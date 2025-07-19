@@ -1,6 +1,6 @@
 package com.krzywdek19.auth.config;
 
-import com.krzywdek19.auth.security.jwt.JwtFilter;
+import com.krzywdek19.readingTacker.auth.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

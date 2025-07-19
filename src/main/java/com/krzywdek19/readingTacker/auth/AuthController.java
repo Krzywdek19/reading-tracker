@@ -1,10 +1,8 @@
-package com.krzywdek19.auth.controllers;
+package com.krzywdek19.readingTacker.auth;
 
-import com.krzywdek19.auth.dto.LoginUserDto;
-import com.krzywdek19.auth.dto.RegisterUserDto;
-import com.krzywdek19.auth.dto.response.AuthResponse;
-import com.krzywdek19.auth.services.JwtService;
-import com.krzywdek19.auth.services.impl.AuthServiceImpl;
+import com.krzywdek19.readingTacker.auth.dto.LoginUserDto;
+import com.krzywdek19.readingTacker.auth.dto.RegisterUserDto;
+import com.krzywdek19.readingTacker.auth.dto.response.AuthResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

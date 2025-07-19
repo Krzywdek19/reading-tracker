@@ -1,4 +1,4 @@
-package com.krzywdek19.auth.services;
+package com.krzywdek19.readingTacker.auth;
 
 import io.jsonwebtoken.Claims;
 import org.springframework.security.core.userdetails.UserDetails;

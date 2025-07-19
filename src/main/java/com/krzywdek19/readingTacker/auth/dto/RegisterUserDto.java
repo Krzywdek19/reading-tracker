@@ -1,4 +1,4 @@
-package com.krzywdek19.auth.dto;
+package com.krzywdek19.readingTacker.auth.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

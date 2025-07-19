@@ -1,4 +1,4 @@
-package com.krzywdek19.auth.dto.response;
+package com.krzywdek19.readingTacker.auth.dto.response;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

@@ -1,7 +1,6 @@
-package com.krzywdek19.auth.security.jwt;
+package com.krzywdek19.readingTacker.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.krzywdek19.auth.services.JwtService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.security.SignatureException;

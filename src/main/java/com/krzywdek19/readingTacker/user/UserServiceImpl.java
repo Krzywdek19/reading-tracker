@@ -1,6 +1,5 @@
-package com.krzywdek19.auth.services.impl;
+package com.krzywdek19.readingTacker.user;
 
-import com.krzywdek19.auth.services.UserService;
 import com.krzywdek19.auth.user.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;

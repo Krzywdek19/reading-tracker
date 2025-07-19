@@ -1,4 +1,4 @@
-package com.krzywdek19.auth.controllers;
+package com.krzywdek19.readingTacker.config;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

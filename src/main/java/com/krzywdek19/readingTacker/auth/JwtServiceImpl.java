@@ -1,5 +1,4 @@
-package com.krzywdek19.auth.security.jwt;
-import com.krzywdek19.auth.services.JwtService;
+package com.krzywdek19.readingTacker.auth;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
