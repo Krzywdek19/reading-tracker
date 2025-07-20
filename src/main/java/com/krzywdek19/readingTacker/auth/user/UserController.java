@@ -1,4 +1,4 @@
-package com.krzywdek19.readingTacker.user;
+package com.krzywdek19.readingTacker.auth.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
-package com.krzywdek19.auth.config;
+package com.krzywdek19.readingTacker.auth.config;
 
-import com.krzywdek19.auth.user.UserRepository;
+import com.krzywdek19.readingTacker.auth.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

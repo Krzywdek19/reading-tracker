@@ -8,6 +8,6 @@ import lombok.Data;
 public class BookUpdateDto {
     private String title;
     private Long authorId;
-    private Long pages;
+    private Integer pages;
     private String description;
 }

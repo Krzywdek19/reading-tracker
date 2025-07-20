@@ -1,4 +1,4 @@
-package com.krzywdek19.auth.user;
+package com.krzywdek19.readingTacker.auth.user;
 
 
 import jakarta.persistence.*;

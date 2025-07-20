@@ -10,6 +10,6 @@ public class BookDto {
     private Long id;
     private String title;
     private AuthorDto authorDto;
-    private Long pages;
+    private Integer pages;
     private String description;
 }

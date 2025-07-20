@@ -1,4 +1,4 @@
-package com.krzywdek19.auth.config;
+package com.krzywdek19.readingTacker.auth.config;
 
 import com.krzywdek19.readingTacker.auth.JwtFilter;
 import lombok.RequiredArgsConstructor;
