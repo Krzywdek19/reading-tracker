@@ -15,5 +15,4 @@ public class BookCreateDto {
     private Long authorId;
     @NotNull(message = "Pages cannot be undefined")
     private Integer pages;
-    private String description;
 }

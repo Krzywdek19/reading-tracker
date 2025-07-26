@@ -9,5 +9,6 @@ public class BookUpdateDto {
     private String title;
     private Long authorId;
     private Integer pages;
+    private Integer readPages;
     private String description;
 }

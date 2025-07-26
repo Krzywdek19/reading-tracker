@@ -11,5 +11,7 @@ public class BookDto {
     private String title;
     private AuthorDto authorDto;
     private Integer pages;
+    private Integer readPages;
     private String description;
+    private boolean isRead;
 }

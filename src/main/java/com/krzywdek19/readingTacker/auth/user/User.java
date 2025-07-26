@@ -1,6 +1,7 @@
 package com.krzywdek19.readingTacker.auth.user;
 
 
+import com.krzywdek19.readingTacker.book.Book;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -31,6 +32,7 @@ public class User implements UserDetails {
     private String email;
     @NotNull(message = "Password cannot be null")
     private String password;
+    private List<Book> books;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

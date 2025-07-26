@@ -1,6 +1,7 @@
 package com.krzywdek19.readingTacker.author;
 
 import com.krzywdek19.readingTacker.book.Book;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +25,8 @@ public class Author {
     private List<Book> writtenBooks = new ArrayList<>();
     private String name;
     private String lastName;
+    @Nullable
     private LocalDate birthDate;
+    @Nullable
     private String description;
 }
