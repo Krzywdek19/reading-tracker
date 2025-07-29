@@ -5,35 +5,47 @@ import { Observable } from "rxjs";
 import { JwtResponse } from "./model/JwtResponse";
 import { RegisterRequest } from "./model/RegisterRequest";
 
+import { BehaviorSubject } from "rxjs";
+import { Router } from '@angular/router';
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class AuthService {
-    private baseUrl = 'http://localhost:8080/auth';
+  private baseUrl = 'http://localhost:8080/auth';
 
-    constructor(private http: HttpClient) {}
+  // stan logowania (domyślnie false)
+  private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
+  isLoggedIn$ = this.loggedIn.asObservable();
 
-    login(data: LoginRequest) : Observable<JwtResponse> {
-        return this.http.post<JwtResponse>(`${this.baseUrl}/login`, data);
-    }
+  constructor(private http: HttpClient) {}
 
-     register(data: RegisterRequest) : Observable<JwtResponse> {
-        return this.http.post<JwtResponse>(`${this.baseUrl}/signup`, data);
-    }
+  login(data: LoginRequest): Observable<JwtResponse> {
+    return this.http.post<JwtResponse>(`${this.baseUrl}/login`, data);
+  }
 
-    saveToken(token: string): void {
-        localStorage.setItem('jwt', token);
-    }
+  register(data: RegisterRequest): Observable<JwtResponse> {
+    return this.http.post<JwtResponse>(`${this.baseUrl}/signup`, data);
+  }
 
-    getToken(): string | null {
-        return localStorage.getItem('jwt');
-    }
+  saveToken(token: string): void {
+    localStorage.setItem('jwt', token);
+    this.loggedIn.next(true);
+  }
 
-    logout(): void {
-        localStorage.removeItem('jwt');
-    }
+  getToken(): string | null {
+    return localStorage.getItem('jwt');
+  }
 
-    isAuthenticated(): boolean {
-        return !!this.getToken();
-    }
+  logout(): void {
+    localStorage.removeItem('jwt');
+    this.loggedIn.next(false);
+  }
+
+  isAuthenticated(): boolean {
+    return this.hasToken();
+  }
+
+  private hasToken(): boolean {
+    return !!localStorage.getItem('jwt');
+  }
 }

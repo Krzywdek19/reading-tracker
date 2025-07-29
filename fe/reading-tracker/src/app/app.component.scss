@@ -1,0 +1,12 @@
+.wrapper {
+    height: 100vh;
+    display: flex;
+    flex-flow: column;
+}
+
+main {
+    background-color: #e9e3e3;
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+}

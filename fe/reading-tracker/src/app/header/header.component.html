@@ -1,0 +1,6 @@
+<header>
+    <h1>Reading Tracker</h1>
+    <p>Track and improve your reading performance!</p>
+    <app-nav *ngIf="isAuthenticated"></app-nav>
+    <button (click)="logout()" *ngIf="isAuthenticated">Logout</button>
+</header>
