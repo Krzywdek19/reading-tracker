@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: reading-tracker
+  datasource:
+    url: jdbc:h2:file:./data/readingdb
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+security:
+  secret:
+    key: 87410a7f48077bb84766226da9a246d3256ce10bf9ec3d9970c81b12c193da66
