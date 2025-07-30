@@ -1,6 +1,7 @@
 package com.krzywdek19.readingTacker.auth.user;
 
 
+import com.krzywdek19.readingTacker.author.Author;
 import com.krzywdek19.readingTacker.book.Book;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -14,6 +15,7 @@ import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -35,7 +37,9 @@ public class User implements UserDetails {
     @NotNull(message = "Password cannot be null")
     private String password;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "addedBy")
+    private List<Author> addedAuthors = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

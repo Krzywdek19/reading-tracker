@@ -1,5 +1,6 @@
 package com.krzywdek19.readingTacker.author;
 
+import com.krzywdek19.readingTacker.auth.user.User;
 import com.krzywdek19.readingTacker.book.Book;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
@@ -25,6 +26,9 @@ public class Author {
     private List<Book> writtenBooks = new ArrayList<>();
     private String name;
     private String lastName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
+    private User addedBy;
     @Nullable
     private LocalDate birthDate;
     @Nullable

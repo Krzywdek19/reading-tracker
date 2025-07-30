@@ -6,14 +6,14 @@ import { JwtResponse } from "./model/JwtResponse";
 import { RegisterRequest } from "./model/RegisterRequest";
 
 import { BehaviorSubject } from "rxjs";
-import { Router } from '@angular/router';
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private baseUrl = 'http://localhost:8080/auth';
 
-  // stan logowania (domyślnie false)
   private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
   isLoggedIn$ = this.loggedIn.asObservable();
 

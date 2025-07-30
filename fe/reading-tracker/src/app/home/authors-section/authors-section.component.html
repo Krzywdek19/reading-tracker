@@ -1,0 +1,8 @@
+<h2>Authors</h2>
+<ul>
+  <li *ngFor="let author of authors">
+    {{ author.name }} {{ author.lastName }} (born {{ author.birthDate }})
+  </li>
+</ul>
+
+<button (click)="goToAddAuthor()">Add author</button>
