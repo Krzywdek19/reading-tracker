@@ -1,0 +1,7 @@
+<form [formGroup]="authorForm" (ngSubmit)="onSubmit()">
+  <label>Name: <input formControlName="name" /></label>
+  <label>lastName: <input formControlName="lastName" /></label>
+  <label>Date of birth: <input formControlName="birthDate" type="date" /></label>
+  <label>description: <textarea formControlName="description"></textarea></label>
+  <button type="submit" [disabled]="authorForm.invalid">Add</button>
+</form>
