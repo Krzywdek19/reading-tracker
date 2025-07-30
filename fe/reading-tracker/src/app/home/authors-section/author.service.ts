@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CreateAuthorDto } from "./add-author/model/CreateAuthorDto";
 import { Observable } from "rxjs";
-import { Author } from "./model/Author";
+import { AuthorDto } from "../../model/AuthorDto";
 
 @Injectable({providedIn: 'root'})
 export class AuthorService {
@@ -16,7 +16,7 @@ export class AuthorService {
         return this.http.post(this.baseUrl, dto);
     }
 
-    getAuthors(): Observable<Author[]> {
-        return this.http.get<Author[]>(this.baseUrl);
+    getAuthors(): Observable<AuthorDto[]> {
+        return this.http.get<AuthorDto[]>(this.baseUrl);
     }
  }

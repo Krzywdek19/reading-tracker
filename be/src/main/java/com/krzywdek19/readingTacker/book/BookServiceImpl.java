@@ -1,6 +1,7 @@
 package com.krzywdek19.readingTacker.book;
 
 import com.krzywdek19.readingTacker.auth.user.CurrentUserProvider;
+import com.krzywdek19.readingTacker.author.AuthorMapper;
 import com.krzywdek19.readingTacker.author.AuthorRepository;
 import com.krzywdek19.readingTacker.author.exception.AuthorNotFoundException;
 import com.krzywdek19.readingTacker.book.dto.BookCreateDto;
@@ -24,6 +25,7 @@ public class BookServiceImpl implements BookService {
     private final AuthorRepository authorRepository;
     private final BookMapper bookMapper;
     private final CurrentUserProvider currentUserProvider;
+    private final AuthorMapper authorMapper;
 
     @Override
     public BookDto createBook(BookCreateDto bookCreateDto) {
@@ -57,7 +59,7 @@ public class BookServiceImpl implements BookService {
         updateIfChanged(book::setPages, book.getPages(), bookUpdateDto.getPages());
 
         if (bookUpdateDto.getReadPages() != null &&
-                !Objects.equals(bookUpdateDto.getReadPages(), book.getReadPages())) {
+                !Objects.equals(bookUpdateDto.getReadPages(), book.getReadPages()) && bookUpdateDto.getReadPages() <= book.getPages()) {
             book.setReadPages(bookUpdateDto.getReadPages());
             markBookAsRead(book);
         }
@@ -91,9 +93,12 @@ public class BookServiceImpl implements BookService {
     public BookDto getBookById(Long id) {
         var user = currentUserProvider.getCurrentUser();
         var book = bookRepository.findById(id)
-                .filter(b -> b.getUser().equals(user))
+                .filter(b -> b.getUser().getId().equals(user.getId()))
                 .orElseThrow(() -> new BookNotFoundException("Book with id %d not found".formatted(id)));
-        return bookMapper.toBookDto(book);
+        var author = authorRepository.findById(book.getAuthor().getId()).orElseThrow(() -> new AuthorNotFoundException("Author with id %d not found".formatted(id)));
+        var mappedBook = bookMapper.toBookDto(book);
+        mappedBook.setAuthorDto(authorMapper.authorToAuthorDto(author));
+        return mappedBook;
     }
 
     @Override
@@ -101,7 +106,15 @@ public class BookServiceImpl implements BookService {
         var user = currentUserProvider.getCurrentUser();
         return bookRepository
                 .findByUserId(user.getId())
-                .stream().map(bookMapper::toBookDto).collect(Collectors.toList());
+                .stream()
+                .map(book -> {
+                    var bookDto = bookMapper.toBookDto(book);
+                    if (book.getAuthor() != null) {
+                        bookDto.setAuthorDto(authorMapper.authorToAuthorDto(book.getAuthor()));
+                    }
+                    return bookDto;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override

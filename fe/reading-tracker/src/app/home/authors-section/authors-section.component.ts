@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Author } from './model/Author';
+import { AuthorDto } from '../../model/AuthorDto';
 import { AuthorService } from './author.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './authors-section.component.scss'
 })
 export class AuthorsSectionComponent implements OnInit {
-  authors: Author[] = [];
+  authors: AuthorDto[] = [];
 
   constructor(private authortService: AuthorService, private router: Router){}
   ngOnInit(): void {

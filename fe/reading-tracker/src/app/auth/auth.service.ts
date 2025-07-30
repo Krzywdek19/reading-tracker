@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { LoginRequest } from "./model/LoginRequest";
+import { LoginRequest } from "../model/LoginRequest";
 import { Observable } from "rxjs";
-import { JwtResponse } from "./model/JwtResponse";
-import { RegisterRequest } from "./model/RegisterRequest";
+import { JwtResponse } from "../model/JwtResponse";
+import { RegisterRequest } from "../model/RegisterRequest";
 
 import { BehaviorSubject } from "rxjs";
 

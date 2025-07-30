@@ -1,0 +1,23 @@
+<form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+  <label>
+    Title:
+    <input formControlName="title" type="text">
+  </label>
+
+  <label>
+    Author:
+    <select formControlName="authorId" required>
+      <option value="" disabled selected>Select author</option>
+      <option *ngFor="let author of authors" [value]="author.id">
+        {{ author.name }} {{ author.lastName }}
+      </option>
+    </select>
+  </label>
+
+  <label>
+    Pages:
+    <input formControlName="pages" type="number">
+  </label>
+
+  <button type="submit" [disabled]="bookForm.invalid">Add book</button>
+</form>

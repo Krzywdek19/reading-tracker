@@ -1,0 +1,27 @@
+<h2>Unread Books</h2>
+<ul>
+  <li *ngFor="let book of unreadBooks">
+    <strong>{{ book.title }}</strong>
+    – {{ book.authorDto.name }} {{ book.authorDto.lastName }}
+    <span>({{ book.readPages }}/{{ book.pages }})</span>
+    <form (ngSubmit)="saveReadPages(book)">
+      <input type="number"
+             min="0"
+             [max]="book.pages"
+             [(ngModel)]="editReadPages[book.id]"
+             name="readPages{{book.id}}"
+             placeholder="Add read pages">
+      <button type="submit">Save</button>
+    </form>
+  </li>
+</ul>
+<button (click)="goToAddBook()">Add book</button>
+
+<h2>Read Books</h2>
+<ul>
+  <li *ngFor="let book of readBooks">
+    <strong class="read-book">{{ book.title }}</strong>
+    – {{ book.authorDto.name }} {{ book.authorDto.lastName }}
+    <span>({{ book.readPages }}/{{ book.pages }})</span>
+  </li>
+</ul>
