@@ -1,0 +1,30 @@
+<h2>Book Details</h2>
+<form *ngIf="bookForm" [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+  <label>
+    Title:
+    <input formControlName="title" type="text">
+  </label>
+  <label>
+    Author:
+    <select formControlName="authorId" required>
+      <option value="" disabled>Select author</option>
+      <option *ngFor="let author of authors" [value]="author.id">
+        {{ author.name }} {{ author.lastName }}
+      </option>
+    </select>
+  </label>
+  <label>
+    Description:
+    <textarea formControlName="description"></textarea>
+  </label>
+  <label>
+    Pages:
+    <input formControlName="pages" type="number">
+  </label>
+  <label>
+    Read pages:
+    <input formControlName="readPages" type="number">
+  </label>
+  <button type="button" (click)="goBack()">Cofnij</button>
+  <button type="submit" [disabled]="bookForm.invalid">Submit changes</button>
+</form>

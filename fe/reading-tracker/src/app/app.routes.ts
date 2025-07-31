@@ -6,6 +6,7 @@ import { AddAuthorComponent } from './home/authors-section/add-author/add-author
 import { AuthorsSectionComponent } from './home/authors-section/authors-section.component';
 import { AddBookComponent } from './home/books-section/add-book/add-book.component';
 import { BooksListComponent } from './home/books-section/books-section.component';
+import { BookDetailsComponent } from './home/books-section/book-details/book-details.component';
 
 
 export const routes: Routes = [
@@ -21,6 +22,7 @@ export const routes: Routes = [
       { path: 'authors', component: AuthorsSectionComponent },
       { path: 'add-author', component: AddAuthorComponent },
       { path: 'books', component: BooksListComponent },
+      {path: 'books/:id', component: BookDetailsComponent},
       { path: 'add-book', component: AddBookComponent }
     ]
   },

@@ -23,21 +23,24 @@ export class AddAuthorComponent {
     });
   }
 
-  onSubmit(): void {
-    if (this.authorForm.valid) {
-      const dto: CreateAuthorDto = this.authorForm.value;
+ onSubmit(): void {
+  if (this.authorForm.valid) {
+    const dto: CreateAuthorDto = this.authorForm.value;
+    dto.birthDate = this.formatDate(dto.birthDate);
 
-      dto.birthDate = this.formatDate(dto.birthDate);
-
-      this.authorService.createAuthor(dto).subscribe({
-        next: () => {
-          console.log('Added author!');
-          this.router.navigate(['/authors'])
-        },
-        error: (err) => console.error('Error ocours', err)
-      });
-    }
+    this.authorService.createAuthor(dto).subscribe({
+      next: () => {
+        console.log('Added author!');
+        this.authorForm.reset(); 
+        this.router.navigate(['/authors']);
+      },
+      error: (err) => {
+        alert('Błąd przy dodawaniu autora!');
+        console.error('Error occurs', err);
+      }
+    });
   }
+}
 
   formatDate(date: any): string {
     return new Date(date).toISOString().split('T')[0];

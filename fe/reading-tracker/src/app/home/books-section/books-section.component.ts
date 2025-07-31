@@ -4,10 +4,11 @@ import { BookDto } from '../../model/BookDto';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-books-section',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './books-section.component.html',
   styleUrls: ['./books-section.component.scss']
 })
@@ -36,13 +37,14 @@ export class BooksListComponent implements OnInit {
     this.router.navigate(['/add-book']);
   }
 
-  saveReadPages(book: BookDto): void {
+saveReadPages(book: BookDto): void {
   const newReadPages = this.editReadPages[book.id];
   if (newReadPages != null && newReadPages >= 0 && newReadPages <= book.pages) {
     const updatedBook = { ...book, readPages: book.readPages + newReadPages };
     this.bookService.updateBook(updatedBook).subscribe({
       next: () => {
-        this.loadBooks(); 
+        this.loadBooks();
+        this.editReadPages[book.id] = 0; 
       },
       error: (err) => console.error('error', err)
     });

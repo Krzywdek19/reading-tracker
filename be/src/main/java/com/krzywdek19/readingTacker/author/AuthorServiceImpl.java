@@ -66,22 +66,23 @@ public class AuthorServiceImpl implements AuthorService {
     public AuthorDto getAuthorById(Long authorId) throws AccessDeniedException {
         var author = authorRepository.findById(authorId)
                 .orElseThrow(() -> new AuthorNotFoundException("Author with id %d not found".formatted(authorId)));
-        checkAuthorCreator(author);
+        if(!checkAuthorCreator(author)) {
+            throw new AccessDeniedException("Author with id %d doesn't belong to current user".formatted(authorId));
+        }
         return authorMapper.authorToAuthorDto(author);
     }
 
     @Override
     public List<AuthorDto> getAllAuthors() {
         var user = currentUserProvider.getCurrentUser();
-        return authorRepository.findAllBYAddedById(user.getId()).stream()
+        return authorRepository.findAll().stream()
+                .filter(this::checkAuthorCreator)
                 .map(authorMapper::authorToAuthorDto)
                 .toList();
     }
 
-    private void checkAuthorCreator(Author author) throws AccessDeniedException {
+    private boolean checkAuthorCreator(Author author) {
         var currentUser = currentUserProvider.getCurrentUser();
-        if(!author.getAddedBy().getId().equals(currentUser.getId())) {
-            throw new AccessDeniedException("You do not have access to this author");
-        }
+        return author.getAddedBy().getId().equals(currentUser.getId());
     }
 }

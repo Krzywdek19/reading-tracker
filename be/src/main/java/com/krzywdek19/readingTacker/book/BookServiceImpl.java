@@ -10,6 +10,7 @@ import com.krzywdek19.readingTacker.book.dto.BookUpdateDto;
 import com.krzywdek19.readingTacker.book.exception.BookNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.AccessDeniedException;
@@ -18,6 +19,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
@@ -57,7 +59,9 @@ public class BookServiceImpl implements BookService {
         updateIfChanged(book::setTitle, book.getTitle(), bookUpdateDto.getTitle());
         updateIfChanged(book::setDescription, book.getDescription(), bookUpdateDto.getDescription());
         updateIfChanged(book::setPages, book.getPages(), bookUpdateDto.getPages());
-
+        if(bookUpdateDto.getPages() != null ) {
+            markBookAsRead(book);
+        }
         if (bookUpdateDto.getReadPages() != null &&
                 !Objects.equals(bookUpdateDto.getReadPages(), book.getReadPages()) && bookUpdateDto.getReadPages() <= book.getPages()) {
             book.setReadPages(bookUpdateDto.getReadPages());
@@ -126,8 +130,10 @@ public class BookServiceImpl implements BookService {
     }
 
     private void markBookAsRead(Book book) {
-        book.setRead(book.getReadPages() != null && book.getPages() != null
-                && book.getReadPages().equals(book.getPages()));
+        if(book.getReadPages() != null && book.getPages() != null){
+            book.setRead(book.getReadPages().equals(book.getPages()));
+            log.info(String.valueOf(book.getReadPages().equals(book.getPages())));
+        }
     }
 
     private void checkBookOwnership(Book book) throws AccessDeniedException {

@@ -17,6 +17,10 @@ export class BookService {
   return this.http.get<BookDto[]>(this.baseUrl);
 }
 
+getBook(id: number): Observable<BookDto> {
+  return this.http.get<BookDto>(`${this.baseUrl}/${id}`);
+}
+
 updateBook(book: BookDto): Observable<BookDto> {
   return this.http.put<BookDto>(`${this.baseUrl}/${book.id}`, book);
 }

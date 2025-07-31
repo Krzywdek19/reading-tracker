@@ -1,7 +1,9 @@
 <h2>Unread Books</h2>
-<ul>
+<ul *ngIf="unreadBooks.length > 0; else noUnread">
   <li *ngFor="let book of unreadBooks">
+     <a [routerLink]="['/books', book.id]">
     <strong>{{ book.title }}</strong>
+    </a>
     – {{ book.authorDto.name }} {{ book.authorDto.lastName }}
     <span>({{ book.readPages }}/{{ book.pages }})</span>
     <form (ngSubmit)="saveReadPages(book)">
@@ -11,16 +13,23 @@
              [(ngModel)]="editReadPages[book.id]"
              name="readPages{{book.id}}"
              placeholder="Add read pages">
-      <button type="submit">Save</button>
+      <button type="submit"
+        [disabled]="editReadPages[book.id] == null || editReadPages[book.id] < 0 || editReadPages[book.id] > book.pages">
+  Save
+</button>
     </form>
   </li>
 </ul>
+<ng-template #noUnread>
+  <p>No unread books.</p>
 <button (click)="goToAddBook()">Add book</button>
 
 <h2>Read Books</h2>
 <ul>
   <li *ngFor="let book of readBooks">
+     <a [routerLink]="['/books', book.id]">
     <strong class="read-book">{{ book.title }}</strong>
+    </a>
     – {{ book.authorDto.name }} {{ book.authorDto.lastName }}
     <span>({{ book.readPages }}/{{ book.pages }})</span>
   </li>
