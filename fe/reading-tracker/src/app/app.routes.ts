@@ -9,13 +9,20 @@ import { BooksListComponent } from './home/books-section/books-section.component
 
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [authGuard] },
-  {path: 'authors', component: AuthorsSectionComponent},
   {
     path: 'auth',
-    children: authRoutes
+    children: authRoutes 
   },
-  { path: 'add-author', component: AddAuthorComponent },
-  { path: 'books', component: BooksListComponent },
-  {path: 'add-book', component: AddBookComponent}
+  {
+    path: '',
+    canActivate: [authGuard],
+    children: [
+      { path: '', component: HomeComponent },
+      { path: 'authors', component: AuthorsSectionComponent },
+      { path: 'add-author', component: AddAuthorComponent },
+      { path: 'books', component: BooksListComponent },
+      { path: 'add-book', component: AddBookComponent }
+    ]
+  },
+  { path: '**', redirectTo: '' }
 ];

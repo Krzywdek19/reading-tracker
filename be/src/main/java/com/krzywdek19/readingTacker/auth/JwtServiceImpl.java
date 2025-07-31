@@ -1,4 +1,5 @@
 package com.krzywdek19.readingTacker.auth;
+import com.krzywdek19.readingTacker.auth.user.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -15,8 +16,10 @@ import java.util.function.Function;
 @Service
 public class JwtServiceImpl implements JwtService {
     private final String secretKey;
+    private final UserRepository userRepository;
 
-    public JwtServiceImpl(@Value("${security.secret.key}") String secretKey) {
+    public JwtServiceImpl(@Value("${security.secret.key}") String secretKey, UserRepository userRepository) {
+        this.userRepository = userRepository;
         this.secretKey = secretKey;
     }
 
@@ -77,6 +80,15 @@ public class JwtServiceImpl implements JwtService {
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + getExpiresIn()))
                 .compact();
+    }
+
+    @Override
+    public boolean isTokenValidAndRefersToRealResource(String token) {
+        if(isTokenExpired(token)) {
+            return false;
+        }
+        var user = userRepository.findByEmail(extractUsername(token));
+        return user.isPresent();
     }
 }
 

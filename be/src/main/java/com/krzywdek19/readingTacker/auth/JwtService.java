@@ -12,5 +12,6 @@ public interface JwtService {
     <T> T extractClaim(String token, Function<Claims, T> claimsResolver);
     String extractUsername(String token);
     boolean isTokenValid(String token, UserDetails userDetails);
+    boolean isTokenValidAndRefersToRealResource(String token);
     Long getExpiresIn();
 }

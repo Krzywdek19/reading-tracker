@@ -1,10 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { LoginRequest } from "../model/LoginRequest";
-import { Observable } from "rxjs";
+import { Observable, of} from "rxjs";
 import { JwtResponse } from "../model/JwtResponse";
 import { RegisterRequest } from "../model/RegisterRequest";
-
+import { catchError, map } from "rxjs/operators";
 import { BehaviorSubject } from "rxjs";
 
 
@@ -41,11 +41,28 @@ export class AuthService {
     this.loggedIn.next(false);
   }
 
-  isAuthenticated(): boolean {
-    return this.hasToken();
+  isAuthenticated(): Observable<boolean> {
+    return this.validateToken();
   }
 
   private hasToken(): boolean {
     return !!localStorage.getItem('jwt');
+  }
+
+  validateToken(): Observable<boolean> {
+  const token = this.getToken();
+  if (!token) return of(false);
+
+  return this.http.get(`${this.baseUrl}/validate`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }).pipe(
+    map(() => true),
+    catchError(() => {
+      this.logout(); // Clear the token if validation fails
+      return of(false);
+    })
+  );
   }
 }
